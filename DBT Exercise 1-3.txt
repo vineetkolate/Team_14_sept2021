@@ -1,0 +1,216 @@
+create table SEMP(empno char(4),empname char(20),basic float,
+ deptno char(2),depthead char(4));
+show tables;
+
+insert into semp
+values('0001','sunil',6000,10,null),
+('0002','hiren',8000,20,null);
+select * from semp;
+drop table semp;
+show tables;
+
+create table SEMP(empno char(4),empname char(20),basic float,
+ deptno char(2),depthead char(4));
+show tables;
+insert into semp
+values('0001','sunil',6000,10,null),
+('0002','hiren',8000,20,null),
+('0003','ali',4000,10,'0001'),
+('0004','george',6000,null,0002);
+select * from semp;
+
+create table SDEPT(septno char(2),deptname char(15));
+show tables;
+insert into sdept
+values('10','development'),
+('20','training');
+select * from sdept;
+show tables;
+create table SUPPLIER(S char(5),Sname varchar(20),Status int(4),City varchar(10));
+drop table supplier;
+
+###create supplier table
+create table SUPPLIER(S char(5),Sname varchar(20),Status char(5),City varchar(10));
+insert into supplier values('S1','Smith','20','London'),
+('S2','Jones','10','Paris'),
+('S3','Blake','30','Paris'),
+('S4','Clark','20','London'),
+('S5','Adams','30','Athens');
+select * from supplier;
+
+####create parts table
+create table PARTS(P char(5),PName varchar(10),color char(10),weight char(5),city varchar(20));
+insert into parts values('P1','Nut','Red','12','London'),
+('P2','Bolt','Green','17','Paris'),
+('P3','Screw','Blue','17','Rome'),
+('P4','Screw','Red','14','London'),
+('P5','Cam','Blue','12','Paris'),
+('P6','cog','Red','19','London');
+select * from parts;
+
+-- create projects table
+create table PROJECTS(J char(5),JName varchar(15),city char(10));
+insert into projects values('J1','Sorter','Paris'),
+('J2','punch','Rome'),
+('J3','Reader','Athens'),
+('J4','console','Athens'),
+('J5','collator','London'),
+('J6','Terminal','Oslo'),
+('J7','Tape','London');
+select * from projects;
+drop table projects;
+create table PROJECTS(J char(5),JName varchar(15),city char(10));
+insert into projects values('J1','Sorter','Paris'),
+('J2','punch','Rome'),
+('J3','Reader','Athens'),
+('J4','console','Athens'),
+('J5','collator','London'),
+('J6','Terminal','Oslo'),
+('J7','Tape','London');
+select * from projects;
+
+##### Write the SELECT queries to do the following:-
+-- Display all the data from the S table
+select * from supplier;
+
+-- Display only the S# and SNAME fields from the S table.
+select S,Sname from supplier;
+
+-- Display the PNAME and COLOR from the P table for the CITY=”London”.
+select Pname,color from parts
+where city = 'London';
+select * from parts;
+
+-- Display all the Suppliers from Paris or Athens.
+select * from supplier
+where city = 'Paris' or city = 'Athens';
+
+--  Display all the Projects in Athens.
+                                Exercise 1
+
+select * from projects
+where city = 'Athens';
+
+-- Display all the Partnames with the weight between 12 and 14 (inclusive of both).  
+select * from parts
+where weight between 12 and 14;
+
+-- Display all the Suppliers with a Status greater than or equal to 20.
+select * from supplier
+where status >= '20';
+
+-- Display all the Suppliers except the Suppliers from London.
+select * from supplier
+where city != 'London';
+
+--  Display only the Cities from where the Suppliers come from paris
+select * from supplier
+where city = 'paris';
+
+-- Assuming that the Part Weight is in GRAMS, display the same in 
+-- MILLIGRAMS and KILOGRAMS.
+select p,pname,color,weight,city,weight/1000 "MILLIGRAMS",
+weight*1000 "KILOGRAMS" from parts;
+
+===============================================================================
+                                    Exercise 2
+
+-- Display the Supplier table in the descending order of CITY.
+select * from supplier order by city desc;
+
+/*Display the Part Table in the ascending order of CITY and within the city in 
+the ascending order of Part names.*/
+select * from parts order by city asc,pname;
+
+-- Display all the Suppliers with a status between 10 and 20. 
+select * from supplier
+where status between 10 and 20;
+
+-- Display all the Parts and their Weight, which are not in the range of 10 and 15.
+select pname,weight from parts
+where weight not between 10 and 15;
+
+-- Display all the Part names starting with the letter ‘S’. 
+select pname from parts 
+where pname like 'S%';
+
+-- Display all the Suppliers, belonging to cities starting with the letter ‘L’.
+select * from supplier
+where city like 'L%';
+
+-- Display all the Projects, with the third letter in JNAME as ‘n’.
+ select * from projects
+ where jname like '__n%';
+ 
+ ==============================================================================
+
+                                  Exercise 3
+
+-- Display all the Supplier names with the initial letter capital. 
+select concat(upper(substr(sname,1,1)),lower(substr(sname,2)))
+from supplier;
+
+-- Display all the Supplier names in upper case.
+select upper(sname) from supplier;
+
+-- Display all the Supplier names in lower case.
+select lower(sname) from supplier;
+
+-- Display all the Supplier names padded to 25 characters, with spaces on the left. 
+select lpad(sname,25,' ') from supplier;
+
+-- Display all the Supplier names (with ‘la’ replaced by ‘ro’). 
+ -- HINT: REPLACE.
+select replace(sname,'la','ro') from supplier;
+
+-- Implement the above command such that ‘l’ is replaced with ‘r’ and ‘a’ is replaced
+-- with ‘o’.
+SELECT REPLACE(REPLACE(sname,'l','r'),'a','o') FROM supplier;
+
+-- Display the Supplier names and the lengths of the names.
+select sname,length(sname) from supplier;
+
+-- Use the soundex function to search for a supplier by the name of ‘BLOKE’. 
+select sname from supplier where soundex(sname) = soundex('Bloke');
+
+-- Display the Supplier name and the status (as Ten, Twenty, Thirty, etc.).
+select  case
+when status = 10 then 'Ten'
+when status = 20 then 'Twenty'
+when status = 30 then 'Thirty'
+end "STATUS WORD"
+ from supplier;
+ 
+ -- Display the current day (e.g. Thursday).
+ select dayname(sysdate()) from dual;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
